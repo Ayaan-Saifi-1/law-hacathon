@@ -1,0 +1,150 @@
+/* ==========================================================================
+   LexRecord — Official Judicial Case Processing & Precedent Archive
+   Design System & Global Styles
+   Clean, Authoritative, Dignified Indian Courtroom Aesthetic
+   ========================================================================== */
+
+:root {
+  /* Institutional Judicial Palette - Light/Bright */
+  --c-bg: #f8fafc;
+  --c-surface: #ffffff;
+  --c-surface-elevated: #f1f5f9;
+  --c-surface-hover: #e2e8f0;
+  --c-border: #cbd5e1;
+  --c-border-subtle: #e2e8f0;
+
+  /* Dignified Judicial Gold / Brass */
+  --c-gold: #9a7b45;
+  --c-gold-hover: #b38e45;
+  --c-gold-subtle: rgba(154, 123, 69, 0.1);
+  --c-gold-border: rgba(154, 123, 69, 0.3);
+  --c-gold-light: #9a7b45;
+
+  /* Official Judicial Status Colors (Understated, Non-Neon) */
+  --c-live: #dc2626;
+  --c-live-bg: rgba(220, 38, 38, 0.1);
+  --c-live-border: rgba(220, 38, 38, 0.3);
+
+  --c-prosecution: #2563eb;
+  --c-prosecution-bg: rgba(37, 99, 235, 0.1);
+  --c-prosecution-border: rgba(37, 99, 235, 0.3);
+
+  --c-defence: #059669;
+  --c-defence-bg: rgba(5, 150, 105, 0.1);
+  --c-defence-border: rgba(5, 150, 105, 0.3);
+
+  --c-amber: #d97706;
+  --c-amber-bg: rgba(217, 119, 6, 0.1);
+  --c-amber-border: rgba(217, 119, 6, 0.3);
+
+  /* Typography Scales */
+  --c-text-primary: #0f172a;
+  --c-text-secondary: #334155;
+  --c-text-muted: #475569;
+  --c-text-dim: #64748b;
+
+  /* Fonts */
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+  /* Layout Dimensions */
+  --sidebar-w: 240px;
+  --topbar-h: 56px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--c-bg);
+  color: var(--c-text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+/* Subtle, Professional Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--c-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-text-muted);
+}
+
+/* Base Input and Controls */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Subtle Transitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/* Print Rules for Judicial Court Record */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+  .app-sidebar, .app-topbar, .no-print {
+    display: none !important;
+  }
+  .transcript-stage {
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+}

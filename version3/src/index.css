@@ -1,0 +1,149 @@
+/* ==========================================================================
+   LexRecord — Official Judicial Case Processing & Precedent Archive
+   Design System & Global Styles
+   Clean, Authoritative, Dignified Indian Courtroom Aesthetic
+   ========================================================================== */
+
+:root {
+  /* Institutional Core Palette */
+  --c-bg: #f3f4f6;
+  --c-surface: #ffffff;
+  --c-surface-elevated: #e5e7eb;
+  --c-surface-hover: #d1d5db;
+  --c-border: #9ca3af;
+  --c-border-subtle: #d1d5db;
+
+  /* Institutional Navy (Replaces Gold/Accents) */
+  --c-navy: #1e3a8a;
+  --c-navy-hover: #1e40af;
+  --c-navy-subtle: rgba(30, 58, 138, 0.08);
+  --c-navy-border: #1e3a8a;
+
+  /* Legacy Status Colors (Flat, Structural) */
+  --c-live: #b91c1c;
+  --c-live-bg: #fef2f2;
+  --c-live-border: #b91c1c;
+
+  --c-prosecution: #1d4ed8;
+  --c-prosecution-bg: #eff6ff;
+  --c-prosecution-border: #1d4ed8;
+
+  --c-defence: #15803d;
+  --c-defence-bg: #f0fdf4;
+  --c-defence-border: #15803d;
+
+  --c-amber: #b45309;
+  --c-amber-bg: #fffbeb;
+  --c-amber-border: #b45309;
+
+  /* Typography Scales */
+  --c-text-primary: #111827;
+  --c-text-secondary: #374151;
+  --c-text-muted: #4b5563;
+  --c-text-dim: #6b7280;
+
+  /* Fonts */
+  --font-serif: 'Times New Roman', Times, serif;
+  --font-sans: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+
+  /* Layout Dimensions */
+  --sidebar-w: 260px;
+  --topbar-h: 56px;
+
+  /* Subtle Layering (Slight Shadows) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--c-bg);
+  color: var(--c-text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+/* Subtle, Professional Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--c-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-text-muted);
+}
+
+/* Base Input and Controls */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Subtle Transitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/* Print Rules for Judicial Court Record */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+  .app-sidebar, .app-topbar, .no-print {
+    display: none !important;
+  }
+  .transcript-stage {
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+}

@@ -1,0 +1,288 @@
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useApp } from "../../context/AppContext";
+import { MOCK_USERS } from "../../data/mock";
+
+export function Sidebar() {
+  const { currentUser, setUser, isRecording, currentCase } = useApp();
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const navLinks = [
+    {
+      group: "COURT SESSIONS",
+      items: [
+        { path: "/causelist", label: "Daily Cause List" },
+        { path: "/workspace", label: "Stenographer Workspace" },
+        { path: "/archive", label: "Precedent Archive" },
+      ],
+    },
+    {
+      group: "ADMINISTRATION",
+      items: [
+        { path: "/admin", label: "Daily Roznama & Bench" },
+      ],
+    },
+  ];
+
+  return (
+    <aside
+      className="app-sidebar"
+      style={{
+        width: "var(--sidebar-w)",
+        height: "100vh",
+        backgroundColor: "var(--c-surface)",
+        borderRight: "1px solid var(--c-border)",
+        display: "flex",
+        flexDirection: "column",
+        flexShrink: 0,
+        userSelect: "none",
+        zIndex: 50,
+      }}
+    >
+      {/* Brand Header */}
+      <div
+        style={{
+          padding: "20px 20px 16px 20px",
+          borderBottom: "1px solid var(--c-border)",
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+        }}
+      >
+        <div
+          style={{
+            width: "36px",
+            height: "36px",
+            borderRadius: "2px",
+            backgroundColor: "var(--c-surface-elevated)",
+            border: "1px solid var(--c-navy-border)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "var(--c-navy)",
+            fontSize: "12px",
+            fontWeight: 700,
+          }}
+        >
+          LR
+        </div>
+        <div>
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "18px",
+              fontWeight: 700,
+              letterSpacing: "0.04em",
+              color: "var(--c-text-primary)",
+              lineHeight: 1.1,
+            }}
+          >
+            LEXRECORD
+          </div>
+          <div
+            style={{
+              fontSize: "10px",
+              fontWeight: 600,
+              color: "var(--c-text-muted)",
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              marginTop: "3px",
+            }}
+          >
+            Tis Hazari Courts • Delhi
+          </div>
+        </div>
+      </div>
+
+      {/* Nav Menu */}
+      <div style={{ flex: 1, padding: "16px 12px", overflowY: "auto" }}>
+        {navLinks.map((section, idx) => (
+          <div key={idx} style={{ marginBottom: "22px" }}>
+            <div
+              style={{
+                fontSize: "10px",
+                fontWeight: 700,
+                color: "var(--c-text-muted)",
+                letterSpacing: "0.08em",
+                padding: "0 10px 8px 10px",
+              }}
+            >
+              {section.group}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              {section.items.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  style={({ isActive }) => ({
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "9px 12px",
+                    borderRadius: "0px",
+                    color: isActive ? "var(--c-navy)" : "var(--c-text-secondary)",
+                    backgroundColor: isActive ? "var(--c-navy-subtle)" : "transparent",
+                    borderLeft: isActive ? "3px solid var(--c-navy)" : "3px solid transparent",
+                    textDecoration: "none",
+                    fontSize: "13px",
+                    fontWeight: isActive ? 600 : 400,
+                    transition: "all 150ms ease",
+                  })}
+                >
+                  {({ isActive }) => (
+                    <>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <span>{item.label}</span>
+                      </div>
+                      {item.path === "/workspace" && isRecording && (
+                        <span
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            backgroundColor: "var(--c-live)",
+                          }}
+                          title="Audio Stream Active"
+                        />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* User Footer with Clean Switcher */}
+      <div
+        style={{
+          padding: "14px 16px",
+          borderTop: "1px solid var(--c-border)",
+          backgroundColor: "var(--c-surface)",
+          position: "relative",
+        }}
+      >
+        {showUserDropdown && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "70px",
+              left: "10px",
+              right: "10px",
+              backgroundColor: "var(--c-surface-elevated)",
+              border: "1px solid var(--c-border)",
+              borderRadius: "6px",
+              boxShadow: "var(--shadow-lg)",
+              padding: "6px",
+              zIndex: 100,
+            }}
+          >
+            <div
+              style={{
+                fontSize: "10px",
+                fontWeight: 700,
+                color: "var(--c-text-muted)",
+                padding: "6px 8px",
+                borderBottom: "1px solid var(--c-border-subtle)",
+              }}
+            >
+              SWITCH COURT OPERATOR
+            </div>
+            {MOCK_USERS.map((u) => (
+              <div
+                key={u.id}
+                onClick={() => {
+                  setUser(u);
+                  setShowUserDropdown(false);
+                  navigate(u.defaultRoute);
+                }}
+                style={{
+                  padding: "8px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  backgroundColor: u.id === currentUser.id ? "var(--c-navy-subtle)" : "transparent",
+                  color: u.id === currentUser.id ? "var(--c-navy)" : "var(--c-text-primary)",
+                }}
+              >
+                <div
+                  style={{
+                    width: "26px",
+                    height: "26px",
+                    borderRadius: "50%",
+                    background: "var(--c-border)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                  }}
+                >
+                  {u.avatar}
+                </div>
+                <div>
+                  <div style={{ fontSize: "12px", fontWeight: 600 }}>{u.name}</div>
+                  <div style={{ fontSize: "10px", color: "var(--c-text-muted)" }}>{u.role}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div
+          onClick={() => setShowUserDropdown(!showUserDropdown)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            cursor: "pointer",
+          }}
+          title="Click to switch operator"
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0 }}>
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "2px",
+                backgroundColor: "var(--c-surface-elevated)",
+                border: "1px solid var(--c-navy-border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--c-navy)",
+                fontSize: "12px",
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
+              {currentUser.avatar}
+            </div>
+            <div style={{ minWidth: 0, overflow: "hidden" }}>
+              <div
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  color: "var(--c-text-primary)",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {currentUser.name}
+              </div>
+              <div style={{ fontSize: "11px", color: "var(--c-text-muted)", marginTop: "1px" }}>
+                {currentUser.role}
+              </div>
+            </div>
+          </div>
+          <span style={{ color: "var(--c-text-muted)", fontSize: "12px", paddingLeft: "6px" }}>⇅</span>
+        </div>
+      </div>
+    </aside>
+  );
+}

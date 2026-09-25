@@ -1,0 +1,70 @@
+.archive-page {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--c-bg);
+}
+
+.archive-main-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 32px;
+}
+
+.archive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.archive-title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--c-text-primary);
+}
+
+.archive-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.archive-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 2px;
+  padding: 18px 22px;
+  cursor: pointer;
+  transition: all 150ms ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.archive-card:hover {
+  border-color: var(--c-border-subtle);
+  background: var(--c-surface-elevated);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.archive-card.selected {
+  border-color: var(--c-navy);
+  background: var(--c-navy-subtle);
+}
+
+/* Sliding Detail Pane */
+.archive-detail-pane {
+  width: 500px;
+  background-color: var(--c-surface);
+  border-left: 1px solid var(--c-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
